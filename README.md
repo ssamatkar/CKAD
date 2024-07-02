@@ -30,4 +30,4 @@
 * [Lab-15: RBAC](https://github.com/ssamatkar/CKAD/blob/main/RBAC.md)
 * [Lab-16: Helm](https://github.com/ssamatkar/CKAD/blob/main/Helm.md)
 * [Reference Links](https://github.com/ssamatkar/CKAD/blob/main/Reference%20Links.md)
-* [CKAD Exercises](https://github.com/Mehar-Nafis/CKAD/blob/main/CKAD%20Exercises.md)
+
