@@ -80,7 +80,7 @@ kubectl get nodes
 ```
 Using the node name from the previous step, add a label to one of the nodes
 ```
-kubectl label nodes <node_name> disktype=ssd
+kubectl label nodes <node_name> disktype=SSD
 ```
 Apply the yaml again as it is stuck in a pending state
 ```
