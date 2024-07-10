@@ -38,11 +38,11 @@ Apply the yaml file
 kubectl apply -f dep.yaml
 ```
 ```
-kubectl get deployments.apps,pod,rs
+kubectl get deployments,pod,rs
 ```
 Note the Statgey and events by describing the deployment
 ```
-kubectl describe deployments.apps dep1
+kubectl describe deployments dep1
 ```
 To increase/decrease the number of replicas manually, either edit the yaml file, or edit the running deployment or execute the below command
 ```
@@ -71,7 +71,7 @@ Check how the pods are getting deleted and recreated.
 
 Cross check if the image has been updated by executing the below command
 ```
-kubectl describe deployments.apps dep1
+kubectl describe deployments dep1
 ```
 To check the rollout history. The below command shows history of 10 versions.
 ```
@@ -130,7 +130,7 @@ Check how the pods are getting deleted and recreated.
 
 Cross check if the image has been updated by executing the below command
 ```
-kubectl describe deployments.apps dep2
+kubectl describe deployments dep2
 ```
 
 ### Task 3: Blue/Green Deployment in Kubernetes 
