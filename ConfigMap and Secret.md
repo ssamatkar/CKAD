@@ -42,6 +42,9 @@ echo $db_pwd
 ```
 env | grep db_
 ```
+```
+exit
+```
 
 ### Task 2: Inject `ALL` variables from ConfigMaps(FromLiteral) into POD.
 Create a ConfigMap
@@ -93,6 +96,9 @@ echo $db_pwd
 ```
 ```
 env | grep db_
+```
+```
+exit
 ```
 
 ### Task 3: Inject `PARTICULAR` variables from ConfigMaps(FromLiteral) into POD.
@@ -149,6 +155,9 @@ echo $db_password
 ```
 env | grep db_
 ```
+```
+exit
+```
 ### Task 4: Inject variables from ConfigMaps(FromFile) into POD.
 Create a file
 ```
@@ -203,6 +212,9 @@ echo $token
 ```
 ```
 env | grep token
+```
+```
+exit
 ```
 
 ### Task 5 : Injecting ConfigMap as volume mount
@@ -265,7 +277,10 @@ kubectl exec -it web-pod-task5 -- sh
 cd /app
 ```
 ```
-cat token
+cat token-task5
+```
+```
+exit
 ```
 
 ### Task 6 : Secret
@@ -365,4 +380,7 @@ echo $password
 ```
 ```
 env 
+```
+```
+exit
 ```
