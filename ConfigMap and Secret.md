@@ -79,7 +79,7 @@ spec:
 kubectl apply -f envtask2.yaml
 ```
 ```
-kubectl describe pod web-pod
+kubectl describe pod web-pod-task2
 ```
 Enter the pod and check if the variable has been passed correctly or not
 ```
