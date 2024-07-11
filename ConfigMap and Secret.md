@@ -2,7 +2,7 @@
 
 ### Task 1: Directly inject variables - Traditional Method
 ```
-vi env.yaml
+vi envtask1.yaml
 ```
 ```yaml
 apiVersion: v1
@@ -24,7 +24,7 @@ spec:
       value: "1234"
 ```
 ```
-kubectl apply -f env.yaml
+kubectl apply -f envtask1.yaml
 ```
 ```
 kubectl describe pod env-pod
@@ -56,7 +56,7 @@ kubectl describe cm cm-1
 ```
 Inject the ConfigMap into the Pod Yaml File
 ```
-vi env.yaml
+vi envtask2.yaml
 ```
 ```yaml
 apiVersion: v1
@@ -64,7 +64,7 @@ kind: Pod
 metadata:
   labels:
     app: web
-  name: web-pod
+  name: web-pod-task2
 spec:
   containers:
   - image: httpd
@@ -76,14 +76,14 @@ spec:
         name: cm-1
 ```
 ```
-kubectl apply -f env.yaml
+kubectl apply -f envtask2.yaml
 ```
 ```
 kubectl describe pod web-pod
 ```
 Enter the pod and check if the variable has been passed correctly or not
 ```
-kubectl exec -it web-pod -- sh
+kubectl exec -it web-pod-task2 -- sh
 ```
 ```
 echo $db_user
@@ -96,10 +96,7 @@ env | grep db_
 ```
 
 ### Task 3: Inject `PARTICULAR` variables from ConfigMaps(FromLiteral) into POD.
-Create a ConfigMap
-```
-kubectl create cm cm-1 --from-literal=db_user=admin --from-literal=db_pwd=1234
-```
+
 ```
 kubectl get cm
 ```
@@ -108,7 +105,7 @@ kubectl describe cm cm-1
 ```
 Inject particular variable from the ConfigMap into the Pod Yaml File
 ```
-vi env.yaml
+vi envtask3.yaml
 ```
 ```yaml
 apiVersion: v1
@@ -116,7 +113,7 @@ kind: Pod
 metadata:
   labels:
     app: web
-  name: web-pod
+  name: web-pod-task3
 spec:
   containers:
   - image: httpd
@@ -131,14 +128,14 @@ spec:
           key: db_pwd
 ```
 ```
-kubectl apply -f env.yaml
+kubectl apply -f envtask3.yaml
 ```
 ```
-kubectl describe pod web-pod
+kubectl describe pod web-pod-task3
 ```
 Enter the pod and check if the variable has been passed correctly or not
 ```
-kubectl exec -it web-pod -- sh
+kubectl exec -it web-pod-task3 -- sh
 ```
 ```
 echo $db_user
@@ -162,17 +159,17 @@ This is CKAD Training. We are practicing Injecting variables from ConfigMaps(Fro
 ```
 Create a ConfigMap
 ```
-kubectl create cm cm-1 --from-file=token         #--from-file=<filen-name>. This file name acts as the key
+kubectl create cm cm-2 --from-file=token         #--from-file=<filen-name>. This file name acts as the key
 ```
 ```
 kubectl get cm
 ```
 ```
-kubectl describe cm cm-1
+kubectl describe cm cm-2
 ```
 Inject particular variable from the ConfigMap into the Pod Yaml File
 ```
-vi env.yaml
+vi envtask4.yaml
 ```
 ```yaml
 apiVersion: v1
@@ -180,7 +177,7 @@ kind: Pod
 metadata:
   labels:
     app: web
-  name: web-pod
+  name: web-pod-task4
 spec:
   containers:
   - image: httpd
@@ -189,17 +186,17 @@ spec:
     - containerPort: 80
     envFrom:
     - configMapRef:
-        name: cm-1
+        name: cm-2
 ```
 ```
-kubectl apply -f env.yaml
+kubectl apply -f envtask4.yaml
 ```
 ```
-kubectl describe pod web-pod
+kubectl describe pod web-pod-task4
 ```
 Enter the pod and check if the variable has been passed correctly or not
 ```
-kubectl exec -it web-pod -- sh
+kubectl exec -it web-pod-task4 -- sh
 ```
 ```
 echo $token
@@ -210,28 +207,27 @@ env | grep token
 
 ### Task 5 : Injecting ConfigMap as volume mount
 
-ConfigMaps consumed as environment variables are not updated automatically and require a pod restart. When a ConfigMap currently consumed in a volume is updated, projected keys are eventually updated as well. The kubelet checks whether the mounted ConfigMap is fresh on every periodic sync. However, the kubelet uses its local cache for getting the current value of the ConfigMap. The type of the cache is configurable using the configMapAndSecretChangeDetectionStrategy field in the KubeletConfiguration struct. A ConfigMap can be either propagated by watch (default), ttl-based, or by redirecting all requests directly to the API server. As a result, the total delay from the moment when the ConfigMap is updated to the moment when new keys are projected to the Pod can be as long as the kubelet sync period + cache propagation delay, where the cache propagation delay depends on the chosen cache type (it equals to watch propagation delay, ttl of cache, or zero correspondingly).
 
 Create a file
 ```
-vi token
+vi token-task5
 ```
 ```
-This is CKAD Training. We are practicing Injecting variables from ConfigMaps(FromFile) into POD.
+This is CKAD Training. We are practicing Injecting ConfigMap as volume mount into POD.
 ```
 Create a ConfigMap
 ```
-kubectl create cm cm-1 --from-file=token        
+kubectl create cm cm-3 --from-file=token-task5       
 ```
 ```
 kubectl get cm
 ```
 ```
-kubectl describe cm cm-1
+kubectl describe cm cm-3
 ```
 Inject as volume mount
 ```
-vi env.yaml
+vi envtask5.yaml
 ```
 ```yaml
 apiVersion: v1
@@ -239,12 +235,12 @@ kind: Pod
 metadata:
   labels:
     app: web
-  name: web-pod
+  name: web-pod-task5
 spec:
   volumes:
   - name: cm-volume
     configMap:
-      name: cm-1
+      name: cm-3
   containers:
   - image: httpd
     name: ctr-1
@@ -256,14 +252,14 @@ spec:
 
 ```
 ```
-kubectl apply -f env.yaml
+kubectl apply -f envtask5.yaml
 ```
 ```
-kubectl describe pod web-pod
+kubectl describe pod web-pod-task5
 ```
 Enter the pod and check if the variable has been passed correctly or not
 ```
-kubectl exec -it web-pod -- sh
+kubectl exec -it web-pod-task5 -- sh
 ```
 ```
 cd /app
@@ -283,7 +279,7 @@ kubectl get secret
 ```
 kubectl describe secret secret-1
 ```
-Declrative
+Declerative
 ```
 vi secret.yaml
 ```
