@@ -156,11 +156,6 @@ In your shell, list the running processes:
 ```
 ps aux
 ```
-In your shell, view the status for process 1:
-```
-cd /proc/1 && cat status
-```
-The output shows the capabilities bitmap for the process. Make a note of the capabilities bitmap. 
 
 Inside the pod, you can try to manipulate network-related settings, which require NET_ADMIN capability.
 ```
@@ -200,16 +195,6 @@ kubectl apply -f security-context-4.yaml
 ```
 kubectl exec -it security-context-pod4 -- sh
 ```
-In your shell, view the capabilities for process 1:
-```
-cd /proc/1 && cat status
-```
-Compare the capabilities of the two Containers:
-
-In the capability bitmap of the first container, bits 12 and 25 are clear. In the second container, bits 12 and 25 are set. Bit 12 is CAP_NET_ADMIN, and bit 25 is CAP_SYS_TIME. 
-
-Note: Linux capability constants have the form CAP_XXX. But when you list capabilities in your container manifest, you must omit the CAP_ portion of the constant. For example, to add CAP_SYS_TIME, include SYS_TIME in your list of capabilities.
-
 Inside the pod, you can try to manipulate network-related settings, which require NET_ADMIN capability.
 ```
 ip link set dev eth0 down
